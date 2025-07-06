@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AgroScan – Smart Farming Advisory</title>
+
+  <!-- Font Awesome for Icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    integrity="sha512-I8gvnZcb0n5m3qY3iLQEjBeHHo8azWvTAbEbsL1SGDpB6wOHT6kL3PVwNcJo7yJgFv2Ekdv28ykuI6MygMX5Yw=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(to right, #e8f5e9, #e3f2fd);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    h1 {
+      margin-bottom: 40px;
+      color: #2e7d32;
+    }
+
+    .portal-container {
+      display: flex;
+      gap: 40px;
+    }
+
+    .portal-card {
+      width: 220px;
+      height: 240px;
+      background-color: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      padding: 25px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .portal-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .portal-card img {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      margin-bottom: 15px;
+    }
+
+    .portal-card i {
+      font-size: 60px;
+      color: #4caf50;
+      margin-bottom: 15px;
+    }
+
+    .portal-card h2 {
+      font-size: 18px;
+      color: #333;
+    }
+
+    @media screen and (max-width: 600px) {
+      .portal-container {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🌾 Welcome to AgroScan</h1>
+
+  <div class="portal-container">
+    <!-- Farmer Portal -->
+    <div class="portal-card" onclick="selectRole('farmer')">
+      <!-- Use image icon -->
+      <img src="{{ url_for('static', filename='farmer.png') }}" alt="Farmer Icon">
+      <!-- Or use icon instead -->
+      <!-- <i class="fas fa-tractor"></i> -->
+      <h2>Farmer Portal</h2>
+    </div>
+
+    <!-- Agromist Portal -->
+    <div class="portal-card" onclick="selectRole('agromist')">
+      <!-- Use image icon -->
+      <img src="{{ url_for('static', filename='agromist.png') }}" alt="Agromist Icon">
+      <!-- Or use icon instead -->
+      <!-- <i class="fas fa-flask"></i> -->
+      <h2>Agromist Portal</h2>
+    </div>
+  </div>
+
+  <script>
+    function selectRole(role) {
+      fetch(`/set-role/${role}`)
+        .then(() => {
+          window.location.href = "/login";
+        });
+    }
+  </script>
+
+</body>
+</html>
